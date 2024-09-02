@@ -1,0 +1,66 @@
+project-id = "perizersandbox"
+region     = "us-central1"
+project_service = {
+  compute = "compute.googleapis.com"
+  container = "container.googleapis.com"
+}
+compute_network_name = "main"
+compute_network_description = "The compute network for creating a cluster"
+compute_network_routing = "REGIONAL"
+compute_network_subnets = false
+compute_network_mtu = 1460
+compute_network_default_routes = false
+compute_subnetwork_name = "private"
+compute_subnetwork_cidr = "10.0.0.0/18"
+compute_network_ip_google_access = true
+compute_network_secondary_ip = [ {
+    ip_cidr_range = "10.48.0.0/14"
+    range_name = "k8s-pod-range"
+  } ,{
+    ip_cidr_range = "10.52.0.0/20"
+    range_name = "k8-service-range"
+  } ]
+compute_router_name = "router"
+compute_router_nat_name = "nat"
+compute_router_nat_subnet_ip = "LIST_OF_SUBNETWORKS"
+compute_router_nat_ip_allocation = "MANUAL_ONLY"
+compute_router_nat_source_ip_range = [ "ALL_IP_RANGES" ]
+compute_address_name = "nataddress"
+compute_address_type = "EXTERNAL"
+compute_address_description = "The nat compute address resource"
+compute_address_tier = "PREMIUM"
+compute_firewall_name = "ssh"
+compute_firewall_protocol = "tcp"
+compute_firewall_ports = [ "22" ]
+compute_firewall_source_range = [ "0.0.0.0/0" ]
+container_cluster_name = "primary"
+container_cluster_remove_node_pool = true
+container_cluster_initial_node_count = 1
+container_cluster_deletion_protection = false
+container_cluster_network_mode = "VPC_NATIVE"
+container_cluster_http_balancing = false
+container_cluster_hpa = false
+container_cluster_release_chanel = "REGULAR"
+container_cluster_secondary_range = "k8s-pod-range"
+container_services_secondary_range = "k8-service-range"
+cluster_enable_private_nodes = true
+cluster_enable_private_endpoint = false
+cluster_master_cidr = "172.16.0.0/28"
+node_pool_name = "pool"
+node_pool_count = 1
+node_pool_auto_repair = true
+node_pool_auto_upgrade = true
+node_pool_min = 0
+node_pool_max = 4
+node_pool_oauth_scope = [ "https://www.googleapis.com/auth/cloud-platform" ]
+node_pool_machine_size = "e2-small"
+spot_node_pool_label = {
+  "team" = "cloud"
+}
+general_node_pool_label = {
+  "role" = "general"
+}
+node_pool_taint_key = "instance_type"
+node_pool_taint_value = "spot"
+node_pool_taint_effect = "NO_SCHEDULE"
+service_account_id = "k8s-test"

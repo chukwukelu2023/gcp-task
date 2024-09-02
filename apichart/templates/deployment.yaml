@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{.Values.appName}}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{.Values.appName}}
+spec:
+  # replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: {{.Values.appName}}
+  template:
+    metadata:
+      labels:
+        app: {{.Values.appName}}
+    spec:
+      terminationGracePeriodSeconds: 30
+      containers:
+      - name: {{.Values.appName}}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+          requests:
+            cpu: "200m"
+        ports:
+        - containerPort: 4500
+        env:
+        - name: PORT
+          valueFrom:
+            configMapKeyRef:
+              name: app-configmap
+              key: port
+      # tolerations:
+      # - key: instance_type
+      #   value: spot
+      #   effect: NoSchedule
+      #   operator: Equal
+      # affinity:
+      #   nodeAffinity:
+      #     requiredDuringSchedulingIgnoredDuringExecution:
+      #       nodeSelectorTerms:
+      #         - matchExpressions:
+      #             - key: team
+      #               operator: In
+      #               values:
+      #                - cloud
+      #   podAntiAffinity:
+      #     requiredDuringSchedulingIgnoredDuringExecution:
+      #     - labelSelector:
+      #         matchExpressions:
+      #         - key: app
+      #           operator: In
+      #           values: 
+      #           - timeapi
+      #       topologyKey : kubernetes.io/hostname
