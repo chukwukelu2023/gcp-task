@@ -72,8 +72,7 @@ jobs:
       if: ${{ github.event.inputs.action == 'apply'}}
       uses: 'google-github-actions/get-gke-credentials@v2'
       with:
-        cluster_name: 'primary'
-        location: 'us-central1-a'
+        cluster_name: projects/${{ secrets.PROJECT_ID }}/locations/us-central1-a/clusters/primary
 
     - name: Run Commands
       id: Kubectl
