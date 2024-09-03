@@ -4,7 +4,7 @@
 appName: timeapp
 namespace: default
 port: 4500
-replicaCount: 3
+replicaCount: 2
 serviceName: timappsvc
 
 image:
