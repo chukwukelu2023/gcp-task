@@ -69,7 +69,7 @@ jobs:
 
     - name: Get Cluster credentials
       id: K8s
-      if: ${{ github.event.inputs.action == 'apply'}}
+      # if: ${{ github.event.inputs.action == 'apply'}}
       uses: 'google-github-actions/get-gke-credentials@v2'
       with:
         cluster_name: projects/${{ secrets.PROJECT_ID }}/locations/us-central1-a/clusters/primary
@@ -80,9 +80,9 @@ jobs:
           chmod +x kubectl
           sudo mv kubectl /usr/local/bin/
 
-    - name: Configure kubectl for GKE
-      run: |
-          gcloud container clusters get-credentials primary --zone us-central1-a --project ${{ secrets.PROJECT_ID }}
+    # - name: Configure kubectl for GKE
+    #   run: |
+    #       gcloud container clusters get-credentials primary --zone us-central1-a --project ${{ secrets.PROJECT_ID }}
 
     - name: Apply Kubernetes Manifests
       run: kubectl get all
