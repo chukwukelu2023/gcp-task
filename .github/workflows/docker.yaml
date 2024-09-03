@@ -32,8 +32,8 @@ jobs:
         if: ${{ !github.event.inputs.tag}}
         uses: docker/build-push-action@v5
         with:
-          context: ./timeapi
-          file: ./timeapi/Dockerfile
+          context: ../timeapi
+          file: ../timeapi/Dockerfile
           push: true
           tags: oluchioraekwe/timeapi:latest
 
