@@ -11,7 +11,7 @@ image:
   repository: oluchioraekwe/timeapi
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: V.1.0
+  tag: latest
 
 imagePullSecrets: []
 nameOverride: ""
