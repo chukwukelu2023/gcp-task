@@ -74,25 +74,12 @@ jobs:
       with:
         cluster_name: projects/${{ secrets.PROJECT_ID }}/locations/us-central1-a/clusters/primary
 
-    - name: Install kubectl
+    - name: Install helm Charts
       run: |
-          curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-          chmod +x kubectl
-          sudo mv kubectl /usr/local/bin/
-
-    # - name: Configure kubectl for GKE
-    #   run: |
-    #       gcloud container clusters get-credentials primary --zone us-central1-a --project ${{ secrets.PROJECT_ID }}
-
-    - name: Apply Kubernetes Manifests
-      run: kubectl get all
-
-    # - name: Run Commands
-    #   id: Kubectl
-    #   if: ${{ github.event.inputs.action == 'apply'}}
-    #   run: |
-    #     'kubectl get all'
-    #     'helm list'
+        helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+        helm repo update
+        helm install nginx-ingress ingress-nginx/ingress-nginx
+        helm install apichart/
 
     - name: Terraform destroy
       id: destroy
