@@ -74,12 +74,25 @@ jobs:
       with:
         cluster_name: projects/${{ secrets.PROJECT_ID }}/locations/us-central1-a/clusters/primary
 
-    - name: Run Commands
-      id: Kubectl
-      if: ${{ github.event.inputs.action == 'apply'}}
+    - name: Install kubectl
       run: |
-        'kubectl get all'
-        'helm list'
+          curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+          chmod +x kubectl
+          sudo mv kubectl /usr/local/bin/
+
+    - name: Configure kubectl for GKE
+      run: |
+          gcloud container clusters get-credentials primary --region us-central1-a --project ${{ secrets.GCP_PROJECT_ID }}
+
+    - name: Apply Kubernetes Manifests
+      run: kubectl get all
+
+    # - name: Run Commands
+    #   id: Kubectl
+    #   if: ${{ github.event.inputs.action == 'apply'}}
+    #   run: |
+    #     'kubectl get all'
+    #     'helm list'
 
     - name: Terraform destroy
       id: destroy
