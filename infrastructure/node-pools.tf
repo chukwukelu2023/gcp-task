@@ -1,6 +1,6 @@
-resource "google_service_account" "k8s" {
-  account_id = var.service_account_id
-}
+# resource "google_service_account" "k8s" {
+#   account_id = var.service_account_id
+# }
 
 resource "google_container_node_pool" "general" {
   name       = "general-${var.node_pool_name}"
@@ -14,7 +14,7 @@ resource "google_container_node_pool" "general" {
     preemptible  = var.node_pool_preemtible
     machine_type = var.node_pool_machine_size
     labels = var.general_node_pool_label
-    service_account = google_service_account.k8s.email
+    service_account = data.google_service_account.this.email
     oauth_scopes = var.node_pool_oauth_scope
   }
 
@@ -41,7 +41,7 @@ resource "google_container_node_pool" "spot" {
       value  = var.node_pool_taint_value
       effect = var.node_pool_taint_effect
     }
-    service_account = google_service_account.k8s.email
+    service_account = data.google_service_account.this.email
     oauth_scopes =var.node_pool_oauth_scope
   }
 

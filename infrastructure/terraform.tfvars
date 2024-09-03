@@ -63,4 +63,5 @@ general_node_pool_label = {
 node_pool_taint_key = "instance_type"
 node_pool_taint_value = "spot"
 node_pool_taint_effect = "NO_SCHEDULE"
-service_account_id = "k8s-test"
+# service_account_id = "k8s-test"
+service_account_id = "demotest"
