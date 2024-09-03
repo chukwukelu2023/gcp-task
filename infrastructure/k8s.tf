@@ -5,11 +5,9 @@ resource "google_container_cluster" "this" {
   initial_node_count       = var.container_cluster_initial_node_count
   network                  = google_compute_network.this.self_link
   subnetwork               = google_compute_subnetwork.this.self_link
-  deletion_protection = var.container_cluster_deletion_protection
-  networking_mode = var.container_cluster_network_mode
-  node_locations = [
-    "${var.region}-b"
-  ]
+  deletion_protection      = var.container_cluster_deletion_protection
+  networking_mode          = var.container_cluster_network_mode
+  node_locations           = ["${var.region}-b"]
   addons_config {
     http_load_balancing {
       disabled = var.container_cluster_http_balancing

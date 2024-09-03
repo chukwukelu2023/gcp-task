@@ -20,10 +20,11 @@ resource "google_compute_router_nat" "this" {
 resource "google_compute_address" "nat" {
   name         = var.compute_address_name
   address_type = var.compute_address_type
-  description = var.compute_address_description
+  description  = var.compute_address_description
   network_tier = var.compute_address_tier
   depends_on   = [google_project_service.this["compute"]]
 }
+
 
 resource "google_compute_firewall" "this" {
   name    = var.compute_firewall_name
