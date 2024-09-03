@@ -37,4 +37,4 @@ override.tf.json
 terraform.rc
 /timeapi/node_modules
 .terraform*
-manifest
+manifest/hpa.yaml
