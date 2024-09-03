@@ -67,6 +67,20 @@ jobs:
       if: ${{ github.event.inputs.action == 'apply'}}
       run: terraform apply -auto-approve
 
+    - name: Get Cluster credentials
+      id: K8s
+      if: ${{ github.event.inputs.action == 'apply'}}
+      uses: 'google-github-actions/get-gke-credentials@v2'
+      with:
+        cluster_name: 'primary'
+        location: 'us-central1-a'
+
+    - name: Run Commands
+      id: Kubectl
+      if: ${{ github.event.inputs.action == 'apply'}}
+      run: |
+        'kubectl get all'
+
     - name: Terraform destroy
       id: destroy
       if: ${{ github.event.inputs.action == 'destroy'}}
