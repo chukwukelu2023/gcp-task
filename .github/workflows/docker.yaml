@@ -15,9 +15,6 @@ jobs:
   docker:
     name: Docker Deploy
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./timeapi
     steps:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -35,8 +32,6 @@ jobs:
         if: ${{ !github.event.inputs.tag}}
         uses: docker/build-push-action@v5
         with:
-          context: ./timeapi
-          file: ./timeapi/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/timeapi:latest
 
@@ -44,7 +39,5 @@ jobs:
         if: ${{ github.event.inputs.tag}}
         uses: docker/build-push-action@v5
         with:
-          context: ./timeapi
-          file: ./timeapi/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/timeapi:${{ github.event.inputs.tag}}

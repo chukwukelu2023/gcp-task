@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-    name: app-map
-    namespace: {{ .Values.namespace }}
-data: 
-    port: "{{ .Values.port }}"
