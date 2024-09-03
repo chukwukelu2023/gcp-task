@@ -62,10 +62,10 @@ jobs:
       run: terraform plan -no-color
       continue-on-error: false
 
-    - name: Terraform Apply
-      id: apply
-      if: ${{ github.event.inputs.action == 'apply'}}
-      run: terraform apply -auto-approve
+    # - name: Terraform Apply
+    #   id: apply
+    #   if: ${{ github.event.inputs.action == 'apply'}}
+    #   run: terraform apply -auto-approve
 
     - name: Get Cluster credentials
       id: K8s
@@ -80,6 +80,7 @@ jobs:
       if: ${{ github.event.inputs.action == 'apply'}}
       run: |
         'kubectl get all'
+        'helm list'
 
     - name: Terraform destroy
       id: destroy

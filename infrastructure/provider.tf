@@ -7,7 +7,7 @@ terraform {
   }
 
   backend "gcs" {
-    bucket = "perizer48bucket"
+    bucket = "ikeike"
     prefix = "terraform/state"
   }
 }
