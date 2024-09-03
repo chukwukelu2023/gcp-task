@@ -82,7 +82,7 @@ jobs:
 
     - name: Configure kubectl for GKE
       run: |
-          gcloud container clusters get-credentials primary --zone us-central1-a --project ${{ secrets.GCP_PROJECT_ID }}
+          gcloud container clusters get-credentials primary --zone us-central1-a --project ${{ secrets.PROJECT_ID }}
 
     - name: Apply Kubernetes Manifests
       run: kubectl get all
